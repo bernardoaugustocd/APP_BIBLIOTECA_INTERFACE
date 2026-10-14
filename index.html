@@ -1,60 +1,110 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sistema Biblioteca - Desenvolvido por Flávio</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Início - Sistema Bibliotecário</title>
+  <link rel="stylesheet" href="style_index.css">
+  <style>
+    .campos-condicionais { display: none; }
+    .campos-condicionais.visivel { display: block; }
+  </style>
 </head>
 <body>
-    <h1 style="text-align: center;">Sistema Bibliotecario</h1>
-  
-    <div class="container">
-        <h2> Cadastro Usuário</h2>
-        <form action="#" method="post">
-            <label for="tipo de usuario">select o tipo de  usuario</label>
-            <select id="tipo de usuario" name="tipo de usuario" required>
-            <option value="0">--Escolha uma opção --</option>
-            <option value="1">Aluno</option>
-            <option value="2">Funcionário</option>
-            </select><br><br>           
-            <label for="usuario"> Nome Usuário:</label>
-            <input type="text">
-        </form>
-    </div>     
 
-        <nav>
-            <ul>
-              <li><a href="#" style="color: green;">Início</a></li>
-              <li><a href="#" style="color: green;">Cadastros</a></li>
-              <li><a href="#" style="color: green;">Empréstimos</a></li>
-              <li><a href="#" style="color: green;">Consultas</a></li>
-              <li><a href="#" style="color: green;">Relatórios</a></li>
-              <li><a href="#" style="color: green;">Sobre</a></li>
-              <li><a href="#" style="color: green;">Sair</a></li>
-            </ul>
+  <header><h1>Sistema Bibliotecário</h1></header>
 
-        </nav>
-        </header>
+  <main>
+    <div class="conteudo"><h2>Bem-vindo</h2><p>Use o menu para realizar login.</p></div>
+  </main>
+
+  <main>
+    <form id="formLogin" class="formulario" action="#" method="post">
+      <div class="container">
+        <h2>Login de Usuário</h2>
+
+        <label for="usuario">Tipo de usuário:</label>
+        <select id="usuario" name="usuario" required>
+          <option value="">-- Escolha uma opção --</option>
+          <option value="funcionario">Funcionário</option>
+          <option value="aluno">Aluno</option>
+        </select>
+
+        <!-- ========== FUNCIONÁRIO (tabela funcionario) ========== -->
+        <div id="campos-funcionario" class="campos-condicionais">
+          <label for="RegistroFuncionario">Registro:</label>
+          <input type="text" id="RegistroFuncionario"
+                 name="RegistroFuncionario" maxlength="10">
+
+          <label for="SenhaFuncionario">Senha:</label>
+          <input type="password" id="SenhaFuncionario"
+                 name="SenhaFuncionario" maxlength="15">
+        </div>
+
+        <!-- ========== ALUNO (tabela aluno) ========== -->
+        <div id="campos-aluno" class="campos-condicionais">
+          <label for="MatriculaAluno">Matrícula:</label>
+          <input type="text" id="MatriculaAluno"
+                 name="MatriculaAluno" inputmode="numeric">
+
+          <label for="SenhaAluno">Senha:</label>
+          <input type="password" id="SenhaAluno"
+                 name="SenhaAluno" maxlength="20">
+        </div>
+
+          <p id="mensagem" role="status"></p>
+          <div class="acoes"><button type="submit">Confirmar login</button></div>
+
+          <div class="mensagem-cadastro">
+            <p>Ainda não possui cadastro?</p>
+            <a href="cadastro_usuario.html">Clique aqui para se cadastrar</a>
+          </div>
+      </div>
       
-        <main>
-          <section class="cadastros">
-            <div class="card">
-                <image src="./imagens/icone empresa.png" width="100px"></image>
-                Empresa</div>
-            <div class="card">
-                <image src="./imagens/icone Editora.png" width="100px"></image>
-                Editoras</div>
-            <div class="card">
-                <image src="./imagens/icone livro.jpg" width="100px"></image>
-                Livros</div>
-            <div class="card">
-                <image src="./imagens/icone_pessoas.png" width="100"></image>
-                Leitores</div>
-            <div class="card">
-                <image src="./imagens/icone usuário.jpg" width="100px"></image>
-                Usuários</div>
-          </section>
-        </main>  
+    </form>
+  </main>
+
+  <nav>
+    <ul>
+      <li><a href="index.html" class="ativo">Início</a></li>
+      <li><a href="sobre.html">Sobre</a></li>
+      <li><a href="index.html">Sair</a></li>
+    </ul>
+  </nav>
+
+  <script>
+    const select = document.getElementById('usuario');
+    const blocos = {
+      funcionario: document.getElementById('campos-funcionario'),
+      aluno: document.getElementById('campos-aluno')
+    };
+
+    function atualizarCampos() {
+      // Esconde todos, desabilita e limpa os inputs
+      Object.values(blocos).forEach(bloco => {
+        bloco.classList.remove('visivel');
+        bloco.querySelectorAll('input').forEach(i => {
+          i.disabled = true;
+          i.required = false;
+          i.value = '';
+        });
+      });
+
+      // Mostra só o bloco escolhido; todas as colunas são NOT NULL
+      const bloco = blocos[select.value];
+      if (bloco) {
+        bloco.classList.add('visivel');
+        bloco.querySelectorAll('input').forEach(i => {
+          i.disabled = false;
+          i.required = true;
+        });
+      }
+    }
+
+    select.addEventListener('change', atualizarCampos);
+    atualizarCampos();
+  </script>
+
+<script src="scripts/index.js"></script>
 </body>
 </html>

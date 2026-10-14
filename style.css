@@ -1,59 +1,185 @@
-body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    background-color: #f4f4f4;
-  }
-  
-  header {
-    background-color: #004080;
-    color: white;
-    padding: 15px;
-    text-align: center;
-  }
-  
-  nav ul {
-    list-style: none;
-    padding: 0;
-    margin: 10px 0 0;
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-  }
-  
-  nav ul li a {
-    color: white;
-    text-decoration: none;
-    font-weight: bold;
-  }
-  
-  nav ul li a:hover {
-    text-decoration: underline;
-  }
-  
-  .cadastros {
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-    margin-top: 40px;
-  }
-  
-  .card {
-    background-color: #fff;
-    padding: 20px;
-    width: 120px;
-    height: 120px;
-    text-align: center;
-    border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-    cursor: pointer;
-    transition: transform 0.2s;
-  }
-  
-  .card:hover {
-    transform: scale(1.05);
-    background-color: #e6f0ff;
-  }
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
 
-.container {
+/* ===== Variáveis (padrão visual da página inicial) ===== */
+:root {
+  --cinza-claro: #dcdcdc;
+  --azul: #6a96ee;
+  --texto: #222;
+  --menu: green;
+  --destaque: goldenrod;
+  --branco: #fff;
+  --botao: #1a7f1a;
+  --botao-hover: #136313;
+}
+
+/* ===== Base ===== */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body { height: 100%; }
+
+body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: 'Roboto', Arial, sans-serif;
+  color: var(--texto);
+  background: linear-gradient(135deg, var(--cinza-claro) 0%, var(--azul) 100%);
+  background-attachment: fixed;
+}
+
+/* ===== Cabeçalho ===== */
+header { width: 100%; }
+header h1 {
+  font-size: 2rem;
+  font-weight: 700;
   text-align: center;
+  padding: 8px 16px;
+}
+
+/* ===== Conteúdo central ===== */
+main {
+  flex: 1;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px 16px;
+}
+
+.conteudo { text-align: center; max-width: 720px; }
+.conteudo h2 { font-size: 1.4rem; margin-bottom: 12px; }
+.conteudo p { margin-bottom: 8px; }
+.conteudo form { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; }
+
+/* ===== Formulários ===== */
+/* ===== Formulários ===== */
+.formulario {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.formulario .container {
+  display: grid;
+  grid-template-columns: auto 1fr;   /* rótulo | campo */
+  gap: 10px 12px;
+  align-items: center;
+  width: 100%;
+  max-width: 440px;
+  padding: 24px;
+  background: rgba(255, 255, 255, 0.6);
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.formulario h2 {
+  grid-column: 1 / -1;               /* ocupa as duas colunas */
+  text-align: center;
+  font-size: 1.4rem;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+.formulario label { text-align: right; font-size: 1rem; }
+
+.formulario input { width: 100%; }
+
+.formulario .acoes {
+  grid-column: 1 / -1;
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+input, select, textarea {
+  padding: 3px 6px;
+  border: 1px solid #767676;
+  border-radius: 2px;
+  background: var(--branco);
+  font-family: inherit;
+  font-size: .85rem;
+}
+input:focus, select:focus, textarea:focus {
+  outline: 2px solid var(--destaque);
+  outline-offset: 1px;
+}
+
+button {
+  padding: 5px 14px;
+  border: 0;
+  border-radius: 4px;
+  background: var(--botao);
+  color: var(--branco);
+  font-family: inherit;
+  font-size: .9rem;
+  cursor: pointer;
+}
+button:hover { background: var(--botao-hover); }
+button[type="reset"] { background: #666; }
+button[type="reset"]:hover { background: #444; }
+
+/* ===== Tabelas ===== */
+table { border-collapse: collapse; background: var(--branco); margin: 12px auto 0; }
+th, td { border: 1px solid #999; padding: 6px 12px; }
+th { background: #eee; }
+
+/* ===== Menu de navegação ===== */
+nav { width: 100%; }
+nav ul {
+  list-style: none;
+  display: flex;
+  gap: 30px;
+  justify-content: center;
+  flex-wrap: wrap;
+  padding: 16px;
+}
+nav a {
+  color: var(--menu);
+  font-weight: 700;
+  font-size: .95rem;
+  text-decoration: none;
+  padding-bottom: 4px;
+  border-bottom: 2px solid transparent;
+}
+nav a:hover,
+nav a.ativo { border-bottom-color: var(--destaque); }
+
+/* ===== Cartões (Editoras, Livros, Usuários) ===== */
+.cards {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  padding: 16px 16px 8px;
+}
+.cards a {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  color: #333;
+  text-decoration: none;
+}
+.cards .icone {
+  width: 120px;
+  height: 120px;
+  display: grid;
+  place-items: center;
+  background: var(--branco);
+  border-radius: 6px;
+  font-size: 3.5rem;
+}
+.cards .icone img { max-width: 100%; max-height: 100%; }
+.cards a:hover .icone { box-shadow: 0 0 0 3px var(--destaque); }
+
+/* ===== Responsivo ===== */
+@media (max-width: 600px) {
+  header h1 { font-size: 1.5rem; }
+  .formulario { grid-template-columns: 1fr; }
+  .formulario h2 { grid-row: auto; justify-self: start; }
+  .formulario label { text-align: left; }
+  .formulario .acoes { grid-column: 1; }
+  nav ul { gap: 16px; }
+  .cards .icone { width: 90px; height: 90px; font-size: 2.5rem; }
 }
